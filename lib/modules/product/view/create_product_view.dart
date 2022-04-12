@@ -17,7 +17,6 @@ class CreateProductView extends StatefulWidget {
 class _CreateProductViewState extends State<CreateProductView> {
   final usecase = Modular.get<CreateProductImpl>();
   var list = globals.brands;
-  Product product = Product(1, "Calça", 3, 123, 100, Brand(1, "Beagle"));
   TextEditingController textEditingControllerId = TextEditingController();
   TextEditingController textEditingControllerName = TextEditingController();
   TextEditingController textEditingControllerQuantity = TextEditingController();
@@ -25,6 +24,7 @@ class _CreateProductViewState extends State<CreateProductView> {
   TextEditingController textEditingControllerPriceCust = TextEditingController();
   TextEditingController textEditingControllerIdBrand = TextEditingController();
   TextEditingController textEditingControllerNameBrand = TextEditingController();
+  TextEditingController textEditingControllerUrl= TextEditingController();
   Brand dropDownBrandValue = globals.brands[0]; 
   
 
@@ -123,7 +123,8 @@ class _CreateProductViewState extends State<CreateProductView> {
                     padding: const EdgeInsets.all(10.0),
                     child: ElevatedButton(
                     onPressed: (){
-                      Product product = Product(int.parse(textEditingControllerId.text), textEditingControllerName.text, int.parse(textEditingControllerQuantity.text), double.parse(textEditingControllerPrice.text), double.parse(textEditingControllerPriceCust.text), dropDownBrandValue);
+                      int id = globals.products.isEmpty ? 1 : globals.products.last.id + 1;
+                      Product product = Product(id, textEditingControllerName.text, int.parse(textEditingControllerQuantity.text), double.parse(textEditingControllerPrice.text), double.parse(textEditingControllerPriceCust.text), dropDownBrandValue);
                       usecase(product);
                       print(list.length);
                       setState(() {});
@@ -135,30 +136,30 @@ class _CreateProductViewState extends State<CreateProductView> {
               )
             ),
             Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(10.0),
               child: Card(
                 elevation: 100,
                 child: Column(
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          child: Row(
-                            children: [
-                              Text("ID" + "    "),
-                              Text("Nome" + "    "),
-                              Text("Marca" + "    "),
-                            ],
-                          )
-                        ),
+                        const Text("ID"),
+                        const Text("Nome"),
+                        const Text("Marca"),
+                        const Text("Venda"),
+                        const Text("Custo"),
+                        const Text("Quantidade"),
+                        const Text("Editar"),
+                        const Text("Excluir")
                       ],
                     ),
                     ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       itemCount: globals.products.length,
-                      itemBuilder: (context, i) {
+                      itemBuilder: (context, i){
                         return RowProduct(globals.products[i]);
                       },
                     ),
