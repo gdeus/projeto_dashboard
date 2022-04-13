@@ -34,13 +34,6 @@ class _CreateBrandScreenState extends State<CreateBrandScreen> {
                     height: 100,
                     width: 200,
                     margin: 10.0,
-                    label: "id",
-                    textEditingController: textEditingControllerId
-                  ),
-                  InputCustom(
-                    height: 100,
-                    width: 200,
-                    margin: 10.0,
                     label: "Nome",
                     textEditingController: textEditingControllerName
                   ),
@@ -65,7 +58,8 @@ class _CreateBrandScreenState extends State<CreateBrandScreen> {
                     padding: const EdgeInsets.all(10.0),
                     child: ElevatedButton(
                     onPressed: (){
-                      Brand brand = Brand(int.parse(textEditingControllerId.text), textEditingControllerName.text);
+                      int id = globals.brands.isEmpty ? 1 : globals.brands.last.id + 1;
+                      Brand brand = Brand(id, textEditingControllerName.text);
                       usecase(brand);
                       print(list.length);
                       setState(() {});

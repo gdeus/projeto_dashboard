@@ -6,5 +6,5 @@ import 'package:projeto_dashboard/modules/product/domain/entites/product.dart';
 List<Product> products = [];
 
 List<Brand> brands = [
-  Brand(1, "Docthos"),
+  Brand(1, "Guilherme")
 ];
